@@ -1,0 +1,29 @@
+{% liquid
+    assign img_width  = 302
+    assign img_height = 331
+%}
+
+<div class="swiper product-thumbs">
+    <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+            <div class="swiper-slide {% if active_media_position == forloop.index %}swiper-slide-active{% endif %}">
+                {% case media.media_type %}
+                    {% when 'image' %}
+                        {%- if media.preview_image != blank -%}
+                            <img src="{{ media.src | image_url: width: img_width, height: img_height, crop: 'center' }}" alt="{{ product.title | escape }}" class="img-fluid mx-auto">
+                        {%- else -%}
+                            {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'h-100' }}
+                        {%- endif -%}
+                    {% when 'external_video' %}
+                        <div class="product-single__photo product-single__media videoSlide" data-media-id="{{ media.id }}" data-slide="{{imgNo}}">
+                            <div class="video-wrapper">{{ media | external_video_tag }}</div>
+                        </div>
+                    {% when 'video' %}
+                        {%- assign videoThumb = media | img_url: '700x' -%}
+                        {{ media | video_tag: poster: videoThumb, controls: true, muted: true, loop: true, playsinline: true, webkit-playsinline: true }}
+
+                {% endcase %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

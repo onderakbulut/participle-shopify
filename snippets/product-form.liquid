@@ -1,0 +1,114 @@
+{% liquid
+    assign current_variant = product.selected_or_first_available_variant
+
+    assign variants_available_arr = product.variants | map: 'available'
+    assign variants_option1_arr = product.variants | map: 'option1'
+    assign variants_option2_arr = product.variants | map: 'option2'
+    assign variants_option3_arr = product.variants | map: 'option3'
+%}
+
+<script>
+    window.productVariants = {{ product.variants | json }}
+</script>
+ 
+<div class="form-wrapper mb-6 rounded">
+    {% form 'product', product, onsubmit: 'onSubmitAtcForm(this, event)' %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        
+        {% unless product.has_only_default_variant %}
+            <div
+                class="product-options list-unstyled pb-4 mb-0" 
+                aria-label="{{ 'product.product_options' | t }}">
+                {% for option in product.options_with_values %}
+                    {% if option.name == 'Size' %}
+                        <p class="fs-15"> {{ option.name }} <span class="text-danger">*</span></p>
+                        <ul class="select-size list-inline mb-31 d-flex">
+                            {% for value in option.values %}
+
+                                {%- liquid
+                                    assign option_disabled = true
+
+                                    for option1_name in variants_option1_arr
+                                    case option.position
+                                        when 1
+                                        if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                            assign option_disabled = false
+                                        endif
+                                        when 2
+                                        if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                            assign option_disabled = false
+                                        endif
+                                        when 3
+                                        if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                            assign option_disabled = false
+                                        endif
+                                    endcase
+                                    endfor
+                                -%}
+                               
+                                <li class="list-inline-item{% if value == option.selected_value %} active{% endif %}{% if option_disabled %} disabled{% endif %}">
+                                    <label class="size-value" for="p-{{ value }}">{{ value }}</label>
+                                    <input type="radio" value="{{ value }}" class="d-none product-option" name="productVariant" id="p-{{ value }}" onchange="onChangeProductOption(this, event)"
+                                        {% if value == option.selected_value %}checked{% endif %}
+                                    >
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="input-group mb-4">
+                            <label class="input-group-text" for="product-option-{{ option.name | handleize }}">
+                                {{ option.name }}
+                            </label>
+                            <select 
+                                id="product-option-{{ option.name | handleize }}" 
+                                class="product-option form-select"
+                                data-product-handle="{{ product.handle }}"
+                                onchange="onChangeProductOption(this, event)">
+                                {% for value in option.values %}
+                                    <option value="{{ value }}" {% if value == option.selected_value %}selected{% endif %}>
+                                        {{ value }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                    
+                {% endfor %}
+            </div>
+        {% endunless %}
+
+        <div class="d-flex">
+            <input 
+                class="form-control me-3 d-none" 
+                type="number" 
+                name="quantity"
+                value="1"
+                aria-label="{{ 'product.quantity' | t }}"
+                style="max-width: 90px;">
+            <button
+                class="btn-atc btn btn-dark w-100"
+                type="submit"
+                name="add"
+                data-text-add-to-cart="{{ 'product.add_to_cart' | t }}"
+                {% unless current_variant.available %}
+                    disabled
+                {% endunless %}>
+                {% if current_variant.available %}
+                    {{ 'product.add_to_cart' | t }}
+                {% else %}
+                    {{ 'product.sold_out' | t }}
+                {% endif %}
+            </button>
+        </div>
+
+        {% if section.settings.form_show_buy_btn %}
+            <button 
+                class="btn-buy btn btn-outline-secondary w-100 mt-4" 
+                type="button"
+                onclick="onClickBuyBtn(this, event)">
+                {{ 'product.buy_it_now' | t }}
+            </button>
+        {% endif %}
+
+    {% endform %}
+</div>

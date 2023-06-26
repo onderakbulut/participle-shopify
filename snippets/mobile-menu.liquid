@@ -1,0 +1,100 @@
+<!-- mobile menu start -->
+<div class="mobile-menu">
+    <div class="mobile-menu-inner py-35 px-3 position-relative h-100">
+        <ul class="list-unstyled">
+            {% for link in linklists[section.settings.menu_mobile].links %}
+                {%- if link.links != blank -%}
+                    <li class="mb-30">
+                        <summary class="fs-18 fw-bold d-flex align-items-center">
+                            <span class="me-2">{{ link.title | escape }}</span>
+                            {%- render 'icon-chevron-right' -%}
+                        </summary>
+                        <div class="submenu py-35 px-3">
+                            <button class="bg-transparent border-0 d-flex align-items-center fw-bold mb-30 close-menu text-dark">
+                                <div class="me-2">{%- render 'icon-chevron-left' -%}</div>
+                                <span>{{ link.title | escape }}</span>
+                            </button>
+                            <ul class="list-unstyled">
+                                {%- for childlink in link.links -%}
+                                    
+                                    {%- if childlink.links == blank -%}
+                                        <li class="mb-30">
+                                            <a href="{{ childlink.url }}" class="fs-18 fw-bold d-flex align-items-center text-dark">
+                                                <span class="me-2">{{ childlink.title | escape }}</span>
+                                            </a>
+                                        </li>
+                                    {%- else -%}
+                                        <li class="mb-30">
+                                            <summary class="fs-18 fw-bold d-flex align-items-center">
+                                                <span class="me-2"> {{ childlink.title | escape }}</span>
+                                                {%- render 'icon-chevron-right' -%}
+                                            </summary>
+                                            <div class="submenu py-35 px-16">
+                                                <button class="bg-transparent border-0 d-flex align-items-center fw-bold mb-30 close-menu  text-dark">
+                                                    <div class="me-2">{%- render 'icon-chevron-left' -%}</div>
+                                                    <span>{{ childlink.title | escape }}</span>
+                                                </button>
+                                                <ul class="list-unstyled">
+                                                    {%- for grandchildlink in childlink.links -%}
+
+                                                        <li class="mb-30">
+                                                            <a href="{{ grandchildlink.url }}" class="fs-18 fw-bold d-flex align-items-center text-dark">
+                                                                <span class="me-2">{{ grandchildlink.title | escape }}</span>
+                                                            </a>
+                                                        </li>
+                                                        
+                                                    {%- endfor -%}
+                                                    
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    {%- endif -%}
+
+                                {%- endfor -%}
+                               
+                               
+                                
+                            </ul>
+                        </div>
+                    </li> 
+                {%- else -%}
+                    {% if forloop.last == true %}
+                        <li>
+                            <a href="{{link.url}}" class="fs-18 fw-bold d-flex align-items-center text-dark">
+                                <span class="me-2">{{ link.title }}</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="mb-30">
+                            <a href="{{link.url}}" class="fs-18 fw-bold d-flex align-items-center text-dark">
+                                <span class="me-2">{{ link.title }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {%- endif -%}
+                
+            {%- endfor -%}
+        </ul>
+        <div class="mb-64">
+            <a href="{{ section.settings.banner-link }}">
+                {%- if section.settings.menu-banner != blank -%}
+                    <img data-src="{{ section.settings.menu-banner | img_url : 'master' }}" alt="" class="img-fluid lazyload">
+                {%- endif -%}
+            </a>
+        </div>
+        <div class="user-actions">
+            {%- if shop.customer_accounts_enabled -%}
+                <a  href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"  class="btn btn-light w-100 ls-0.015em lh-19 fw-bold py-14 rounded-50 border-dark mb-2">{%- liquid
+                    if customer
+                        echo 'customer.account_fallback' | t
+                    else
+                        echo 'customer.login.title' | t
+                    endif
+                    -%}
+                </a>
+            {%- endif -%}
+            
+            <a href="{{ routes.account_register_url }}" class="btn btn-transparent w-100 ls-0.015em lh-19 fw-bold py-14 rounded-50">{{ 'customer.register.title' | t }}</a>
+        </div>
+    </div>
+</div>

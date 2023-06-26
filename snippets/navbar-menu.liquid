@@ -1,0 +1,76 @@
+<ul class="list-unstyled mb-0" id="mynavbar">
+    {% for link in linklists[section.settings.menu_desktop].links %}
+        {% if link.links == blank %}
+        <li class="list-inline-item">
+            <a
+                class="nav-link {% if link.active %}active{% endif %} py-10" 
+                href="{{ link.url }}"
+                aria-current="{% if link.active %}page{% endif %}">
+                {{ link.title }}
+            </a>
+        </li>
+        {% else %}
+            <li class="list-inline-item dropdown mega-dropdown-main">
+                <a 
+                    class="nav-link dropdown-toggle {% if link.child_active %}active{% endif %} py-10" 
+                    href="#"
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false"
+                    role="button">
+                    {{ link.title }}
+                </a>
+                <div class="dropdown-menu mega-dropdown pt-31 pb-62 border-0 rounded-0">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <ul class="list-unstyled row row-cols-2">
+                                    {% for child_link in link.links %}
+                                        <li>
+                                            <a 
+                                                id="navbar-childitem-{{ forloop.index }}" 
+                                                class="d-block mb-3 text-ebony fw-bold {% if child_link.active %}active{% endif %}" 
+                                                href="{{ child_link.url }}"
+                                                aria-current="{% if child_link.active %}page{% endif %}">
+                                                {{ child_link.title }}
+                                            </a>
+                                           
+                                            {%- if child_link.links != blank -%}
+                                                <ul class="list-unstyled" role="list">
+                                                    {%- for grandchildlink in child_link.links -%}
+                                                        <li>
+                                                        <a
+                                                            id="HeaderMenu-{{ link.handle }}-{{ child_link.handle }}-{{ grandchildlink.handle }}"
+                                                            href="{{ grandchildlink.url }}"
+                                                            class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                                            {% if grandchildlink.current %}
+                                                            aria-current="page"
+                                                            {% endif %}
+                                                        >
+                                                            {{ grandchildlink.title | escape }}
+                                                        </a>
+                                                        </li>
+                                                    {%- endfor -%}
+                                                </ul>
+                                             {%- endif -%}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-lg-5 text-end">
+                                {% assign parentindex = forloop.index|strip %}
+                                {% for block in section.blocks %}
+                                    {% assign index = block.settings.menu_position|strip %}
+                                    {% if index == parentindex %}
+                                        <img class="img-fluid" src="{{ block.settings.image| image_url }}" alt="{{ block.settings.image.alt | t }}">
+                                    {% else %}
+                                              
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

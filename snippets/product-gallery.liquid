@@ -1,0 +1,48 @@
+{% liquid
+    assign current_variant = product.selected_or_first_available_variant
+
+    case section.settings.gallery_img_orientation
+        when 'square'
+            assign img_width  = 1200
+            assign img_height = 1200
+        when 'landscape'
+            assign img_width  = 1200
+            assign img_height = 960
+        when 'potrait'
+            assign img_width  = 641
+            assign img_height = 821
+    endcase
+
+    if product.has_only_default_variant 
+        assign active_media_position = 1
+    else 
+        assign active_media_position = current_variant.featured_media.position
+    endif
+
+%}
+
+<div id="product-gallery" class="swiper product-gallery">
+    <div class="position-absolute top-0 end-0 zindex-1024 mt-2 me-2 mt-lg-20 me-lg-20 wishlist-btn" role="button"></div>
+    <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+            <div class="swiper-slide {% if active_media_position == forloop.index %}swiper-slide-active{% endif %}" data-fancybox="gallery" data-src="{{ media.preview_image | image_url: large }}">
+                {% case media.media_type %}
+                    {% when 'image' %}
+                        {%- if media.preview_image != blank -%}
+                            <img src="{{ media.src | image_url: width: img_width, height: img_height, crop: 'center' }}" alt="{{ product.title | escape }}" class="w-100">
+                        {%- else -%}
+                            {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'h-100' }}
+                        {%- endif -%}
+                    {% when 'external_video' %}
+                        <div class="product-single__photo product-single__media videoSlide" data-media-id="{{ media.id }}" data-slide="{{imgNo}}">
+                            <div class="video-wrapper">{{ media | external_video_tag }}</div>
+                        </div>
+                    {% when 'video' %}
+                        {%- assign videoThumb = media | img_url: '700x' -%}
+                        {{ media | video_tag: poster: videoThumb, controls: true, muted: true, loop: true, playsinline: true, webkit-playsinline: true }}
+
+                {% endcase %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
