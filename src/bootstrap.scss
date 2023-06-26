@@ -1,0 +1,69 @@
+
+
+@use "sass:math";
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import '../node_modules/bootstrap/scss/functions';
+
+// 2. Include any default variable overrides here
+$spacer:        1rem;
+$spacers: (
+    0: 0,
+    1: $spacer * 0.125,
+    2: $spacer * 0.25,
+    3: $spacer * 0.5,
+    4: $spacer * 0.75,
+    5: $spacer * 1,
+    6: $spacer * 1.25,
+    7: $spacer * 1.5,
+    8: $spacer * 1.75,
+    9: $spacer * 2,
+    10: $spacer * 2.5,
+    11: $spacer * 3,
+    12: $spacer * 4,
+    13: $spacer * 5,
+    14: $spacer * 6,
+    15: $spacer * 7,
+    16: $spacer * 8,
+    17: $spacer * 9,
+    18: $spacer * 10,
+    19: $spacer * 12,
+    20: $spacer * 14,
+);
+
+$h1-font-size: 3rem;
+$h2-font-size: 2.5rem;
+$h3-font-size: 2rem;
+$h4-font-size: 1.5rem;
+$h5-font-size: 1.25rem;
+$h6-font-size: 1rem;
+
+$font-sizes: (
+    1: 2.5rem,
+    2: 2rem,
+    3: 1.5rem,
+    4: 1.25rem,
+    5: 1.125rem,
+    6: 1rem
+);
+
+$headings-font-family:      var(--bs-headings-font-family);
+$headings-font-weight:      var(--bs-headings-font-weight);
+$font-family-base:          var(--bs-body-font-family);
+
+$enable-negative-margins:   true;
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import '../node_modules/bootstrap/scss/variables';
+
+// 4. Include any default map overrides here
+
+// 5. Include remainder of required parts
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+// 8. Add additional custom code here

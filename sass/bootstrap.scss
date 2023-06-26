@@ -1,0 +1,131 @@
+$spacer:        1rem;
+
+$spacers: (
+    0: 0,
+    1: $spacer * .25,
+    2: $spacer * .5,
+    3: $spacer,
+    4: $spacer * 1.5,
+    5: $spacer * 3
+);
+
+@for $i from 6 through 100 {
+  $spacers: map-merge(
+    $spacers,
+    (
+      $i: (
+        $i+px,
+      ),
+    )
+  );
+}
+
+$font-size-base:              1rem !default;
+
+$h1-font-size:                $font-size-base * 2.5 !default;
+$h2-font-size:                $font-size-base * 2 !default;
+$h3-font-size:                $font-size-base * 1.75 !default;
+$h4-font-size:                $font-size-base * 1.5 !default;
+$h5-font-size:                $font-size-base * 1.25 !default;
+$h6-font-size:                $font-size-base !default;
+
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size,
+  10: 10px,
+  12: 12px,
+  13: 13px,
+  14: 14px,
+  15: 15px,
+  17: 17px,
+  20: 20px,
+  23: 23px,
+  25: 25px,
+) !default;
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1170px
+) !default;
+
+$dark: #000000;
+
+$theme-colors: (
+  "primary":    #4755E5,
+  "secondary":  #6c757d,
+  "success":    #198754,
+  "info":       #0dcaf0,
+  "warning":    #ffc107,
+  "danger":     #D94B39,
+  "light":      #fff,
+  "dark":       $dark,
+  "sand":       #F4F4F4,
+  "scorpion":   #5E5E5E,
+  "wild":       #F7F7F7,
+  "gallery": #F0F0F0,
+  "blue": #4755E5,
+  "alto": #D9D9D9
+) !default;
+
+$enable-negative-margins:   true;
+$link-color: $dark;
+$link-decoration: inherit !default;
+$breadcrumb-divider: quote("|");
+$enable-rounded: false;
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+
+.btn-check:focus + .btn, .btn:focus,
+.form-control:focus,
+.form-check-input:focus,
+.form-select:focus,
+.page-link:focus,
+.btn-close:focus,
+.accordion-button:focus {
+    box-shadow:unset;
+    border-color: inherit;
+}
+
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "shadow": map-merge(
+      map-get($utilities, "shadow"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "shadow"), "values"),
+          (light :0px 4px 10px rgba(0, 0, 0, 0.1)),
+        ),
+      ),
+    ),
+    "rounded": map-merge(
+      map-get($utilities, "rounded"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "rounded"), "values"),
+          (
+            2px: 2px,
+            5px: 5px,
+            10: 10px,
+            100: 100px
+          ),
+        ),
+      ),
+    ),
+    "pointer-events": map-merge(
+      map-get($utilities, "pointer-events"),
+      ( responsive: true ),
+    ),
+
+  )
+);
+
+@import "../node_modules/bootstrap/scss/utilities/api";

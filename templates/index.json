@@ -1,0 +1,138 @@
+{
+  "sections": {
+    "carousel": {
+      "type": "carousel",
+      "blocks": {
+        "7c7200c0-9e25-4d6f-8e80-68098f92561e": {
+          "type": "slide",
+          "settings": {
+            "img_mobile": "shopify:\/\/shop_images\/slide.jpg",
+            "img_desktop": "shopify:\/\/shop_images\/slide.jpg",
+            "title": "STEP INTO STYLE",
+            "title_size": "h2",
+            "description": "<p>Discover Our Latest Collection<\/p>",
+            "description_size": "fs-5",
+            "btn_text": "Go To Catalog",
+            "btn_url": "#",
+            "btn_color": "btn-dark",
+            "btn_size": "",
+            "content_align": "start",
+            "content_align_mobile": "start"
+          }
+        },
+        "3829b135-cbaa-495a-b94b-259ac0e927ba": {
+          "type": "slide",
+          "settings": {
+            "img_mobile": "shopify:\/\/shop_images\/slide-2_104440f9-4b13-4067-bf6b-542ae4c14e28.jpg",
+            "img_desktop": "shopify:\/\/shop_images\/slide-2_104440f9-4b13-4067-bf6b-542ae4c14e28.jpg",
+            "title": "ELEVATE YOUR WARDROBE",
+            "title_size": "h2",
+            "description": "<p> Shop Our Trendy Fashion<\/p>",
+            "description_size": "fs-5",
+            "btn_text": "Go To Catalog",
+            "btn_url": "#",
+            "btn_color": "btn-dark",
+            "btn_size": "",
+            "content_align": "end",
+            "content_align_mobile": "end"
+          }
+        }
+      },
+      "block_order": [
+        "7c7200c0-9e25-4d6f-8e80-68098f92561e",
+        "3829b135-cbaa-495a-b94b-259ac0e927ba"
+      ],
+      "settings": {
+        "controls": false,
+        "indicators": true,
+        "autoplay": false,
+        "loop": true,
+        "animation": "slide",
+        "img_mobile_height": 260,
+        "img_desktop_height": 540,
+        "mt": 0,
+        "mb": 0
+      }
+    },
+    "d5fb186a-b32f-4d46-bd0d-974b955e75c4": {
+      "type": "multicolumn",
+      "blocks": {
+        "d7dca022-a98a-4a0e-89ec-c665fceaf97f": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image.jpg",
+            "heading": "LEANING IN",
+            "link_label": "SHOP DRESSES",
+            "url": ""
+          }
+        },
+        "fc516566-4b85-44e9-acf7-4003c7bba030": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/column-image-2.jpg",
+            "heading": "ALL OVER VELVET",
+            "link_label": "SHOP BACK-IN-STOCK",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "d7dca022-a98a-4a0e-89ec-c665fceaf97f",
+        "fc516566-4b85-44e9-acf7-4003c7bba030"
+      ],
+      "settings": {
+        "title": "PARKS AND RECREATION",
+        "url_text": "SHOP NEW",
+        "url": "#"
+      }
+    },
+    "f9c21e93-ab6a-4e36-8171-a41cc44ffc59": {
+      "type": "separator",
+      "settings": {
+        "full_width": false,
+        "opacity": 1,
+        "mt": 49,
+        "mb": 46
+      }
+    },
+    "165151877352b831f8": {
+      "type": "featured-products",
+      "settings": {
+        "products": [
+          "flowers-on-sleeves-dress",
+          "cat-eye-resin-sunglasses-in-clear",
+          "notte-dot-dress",
+          "marigold-trouser"
+        ],
+        "bg_color": "",
+        "text_align": "text-center",
+        "title": "FEATURED",
+        "description": "<p>Add on optional description to this section<\/p>",
+        "description_size": "fs-6",
+        "product_img_orientation": "potrait",
+        "product_title_size": "h6",
+        "mobile_scroll": true,
+        "breakpoint_xs": 2,
+        "breakpoint_sm": 2,
+        "breakpoint_md": 2,
+        "breakpoint_lg": 3,
+        "breakpoint_xl": 4,
+        "breakpoint_xxl": 4,
+        "btn_show": true,
+        "btn_text": "& More New",
+        "btn_url": "shopify:\/\/collections\/all",
+        "btn_color": "btn-outline-dark",
+        "pt": 0,
+        "pb": 0,
+        "mt": 0,
+        "mb": 62
+      }
+    }
+  },
+  "order": [
+    "carousel",
+    "d5fb186a-b32f-4d46-bd0d-974b955e75c4",
+    "f9c21e93-ab6a-4e36-8171-a41cc44ffc59",
+    "165151877352b831f8"
+  ]
+}

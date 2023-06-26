@@ -1,0 +1,155 @@
+{
+  "current": {
+    "color_primary": "#0d6efd",
+    "color_light": "#f8f9fa",
+    "color_body_bg": "#ffffff",
+    "color_body_text": "#212529",
+    "font_headings": "roboto_n5",
+    "font_body": "sans-serif",
+    "cart_drawer_show_vendor": true,
+    "cart_drawer_show_cart_link": true,
+    "social_facebook": "#",
+    "social_twitter": "#",
+    "social_instagram": "#",
+    "social_pinterest": "",
+    "social_tiktok": "#",
+    "social_snapchat": "",
+    "social_youtube": "#",
+    "social_linkedin": "",
+    "social_whatsapp": "#",
+    "buttons_border_radius": "0.25rem",
+    "cart_goal_enable": true,
+    "cart_goal_value": 300,
+    "search_show_popular_products": true,
+    "search_popular_products": [
+      "bag-series-1",
+      "glasses-series-1",
+      "heat-series-1",
+      "lamp-series-1",
+      "watch-series-14",
+      "bag-series-2",
+      "glasses-series-2",
+      "heat-series-2",
+      "lamp-series-2",
+      "shoes-series-2"
+    ],
+    "sections": {
+      "navbar": {
+        "type": "navbar",
+        "blocks": {
+          "a167a2e5-3640-44d4-a8e6-997b15707936": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/mega-image.jpg",
+              "menu_position": "2"
+            }
+          }
+        },
+        "block_order": [
+          "a167a2e5-3640-44d4-a8e6-997b15707936"
+        ],
+        "settings": {
+          "menu_desktop": "main-menu",
+          "logo": "shopify:\/\/shop_images\/logo.svg",
+          "offcanvas_menu_header_bg": "bg-dark text-white",
+          "menu_mobile": "main-menu",
+          "utilities_menu": "",
+          "offcanvas_menu_show_social_icons": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "3cda8bcc-909e-48bd-a7b7-2823ca9ea34b": {
+            "type": "richtext",
+            "settings": {
+              "title": "Participle+",
+              "title_size": "h6",
+              "description": "<p>132 Smith Street <\/p><p>Brooklyn, NY 14231<\/p>",
+              "btn_text": "Contact Us",
+              "btn_url": "shopify:\/\/pages\/contact",
+              "btn_color": "btn-link",
+              "btn_size": "btn-sm"
+            }
+          },
+          "738cdbe4-d453-45ea-8940-aed81d08bf3b": {
+            "type": "menu",
+            "settings": {
+              "menu": "customer-care",
+              "title": "CUSTOMER CARE",
+              "title_size": "h6"
+            }
+          },
+          "ac3b4c00-f362-4697-b848-3957315b3c61": {
+            "type": "menu",
+            "settings": {
+              "menu": "connect",
+              "title": "CONNECT",
+              "title_size": "h6"
+            }
+          }
+        },
+        "block_order": [
+          "3cda8bcc-909e-48bd-a7b7-2823ca9ea34b",
+          "738cdbe4-d453-45ea-8940-aed81d08bf3b",
+          "ac3b4c00-f362-4697-b848-3957315b3c61"
+        ],
+        "settings": {
+          "bg_color": "bg-wild text-dark",
+          "show_payment_icons": false,
+          "show_social_icons": true,
+          "show_powered_by": true
+        }
+      },
+      "template-cart": {
+        "type": "template-cart",
+        "settings": {
+          "show_note": true,
+          "mt": 10,
+          "mb": 10
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "announcement",
+            "settings": {
+              "text": "Free Shipping On All U.S. Orders",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0"
+        ],
+        "settings": {
+          "show": true,
+          "homepage": false,
+          "max_width": "600"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "bg_color": "bg-light text-dark",
+          "max_width": "560",
+          "title": "Newsletter Subscribe",
+          "title_size": "h3",
+          "description": "<p>Subscribe to get updates about our latest offers and other important stuff. We usually send once per week.<\/p>",
+          "description_size": "fs-6",
+          "input_group_size": "",
+          "btn_color": "btn-primary",
+          "notice": "<p>By signing up for email, you agree to our <a href=\"#\" title=\"#\">Terms of Service<\/a> and <a href=\"#\" title=\"#\">Privacy Policy<\/a>.<\/p>",
+          "pt": 10,
+          "pb": 10,
+          "mt": 0,
+          "mb": 0
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "general": {
+    "general": {
+      "share": "Share",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "all_rights_reserved": "All rights reserved.",
+      "secure_payments": "100% secure and protected payments",
+      "pagination_page_of": "Page {{ count }} of {{ total }}",
+      "follow_us": "Let's be friends..."
+    },
+    "accessibility": {
+      "skip_content": "Skip to content",
+      "skip_product_content": "Skip to product information",
+      "utility_icons": "Utilities menu",
+      "menu": "Menu",
+      "cart": "Cart",
+      "search": "Arama",
+      "account": "Account",
+      "previous": "Previous",
+      "next": "Next",
+      "previous_page": "Previous page",
+      "next_page": "Next page",
+      "close": "Close",
+      "decrease_qty": "Decrease quantity",
+      "increase_qty": "Increase quantity",
+      "social_media_links": "Social media links",
+      "cart_product_list": "Cart items",
+      "payment_methods": "Payment methods",
+      "sorted_by": "Sorted by",
+      "product_media_gallery": "Product media gallery",
+      "product_options": "Product options"
+    },
+    "offcanvas_search": {
+      "title": "Arama",
+      "input_label": "Ne arıyorsun?",
+      "view_all_results": "View all results →",
+      "button": "Search",
+      "title_collections": "Collections",
+      "title_products": "Ürünler",
+      "title_pages": "Pages",
+      "title_articles": "Blog",
+      "search_for": "Arama sonuçları",
+      "result_found": "1 result found",
+      "results_found": "[count] results found",
+      "no_results": "No results found"
+    },
+    "search_page": {
+      "title": "Search our store",
+      "title_search_performed": "Arama sonuçları",
+      "no_results": "“{{ terms }}” araması için sonuç bulunamadı!",
+      "results_with_count_and_term": {
+        "one": " “{{ terms }}” araması için {{ count }} sonuç bulundu.",
+        "other": " “{{ terms }}” araması için {{ count }} sonuç bulundu."
+      },
+      "form": {
+        "input_label": "Search for...",
+        "select_label": "Product types",
+        "btn_text": "Ara"
+      },
+      "types": {
+        "products": "Ürünler",
+        "pages": "Sayfalar",
+        "articles": "Blog"
+      }
+    },
+    "newsletter": {
+      "input_label": "Enter your email...",
+      "confirmation_text": "Thanks for subscribing, you'll hear from us soon.",
+      "submit_button": "Subscribe"
+    },
+    "breadcrumbs": {
+      "label": "Breadcrumbs",
+      "home": "Ana sayfa"
+    },
+    "404_page": {
+      "title": "404 - Page not found",
+      "subtext": "The page you were looking for does not exist",
+      "button": "Go back to homepage"
+    },
+    "contact": {
+      "name": "İsim",
+      "email": "Email",
+      "phone": "Telefon (opsiyonel)",
+      "message": "Mesajınız",
+      "send": "Gönder",
+      "success": "Bizimle iletişime geçtiğiniz için teşekkürler. En kısa sürede size geri döneceğiz.",
+      "error_heading": "Aşağıdaki hataları düzeltin"
+    },
+    "password_page": {
+      "password_form": {
+        "password_label": "Password",
+        "btn_label": "Enter"
+      }
+    }
+  },
+  "collection": {
+    "empty_html": "No products found! <a href=\"\/collections\/all\">View all »<\/a>",
+    "sort_by": "Sort by",
+    "btn_filter_products": "Filtrele",
+    "paginate_count": "Showing {{ count }} of {{ total }} products",
+    "count_products": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "more": "Daha Fazla",
+    "less": "Daha  Az",
+    "filters": {
+      "title": "Filtrele",
+      "reset": "Reset",
+      "from": "From",
+      "to": "To",
+      "view_more": "Daha Fazla",
+      "clear_filter": "Clear filter",
+      "clear_all": "Temizle ({{ count }})",
+      "view_results": {
+        "one": "Ürünleri gör {{ count }}",
+        "other": "{{ count }} Ürünleri gör"
+      },
+      "max_range_notice": "Note: The highest price is {{ value }}"
+    }
+  },
+  "product": {
+    "add_to_cart": "Satın Al",
+    "add": "Add",
+    "added_to_cart": "✓ Sepete Eklendi",
+    "price_regular": "Regular price",
+    "price_from": "From",
+    "price_sale": "Sale price",
+    "price_unit": "Unit price",
+    "sold_out": "Tükendi",
+    "quantity": "Quantity",
+    "unavailable": "Unavailable",
+    "product_options": "Product options",
+    "buy_it_now": "Buy it now",
+    "save": "İndirim",
+    "in_stock": "In stock",
+    "select_variant": "Select variant",
+    "color_options": "Color options"
+  },
+  "cart": {
+    "title": "Sepetim",
+    "empty_html": "<p>Sepetiniz şu anda boş<\/p>",
+    "summary": "Summary",
+    "continue_shopping": "Alışverişe Devam",
+    "view_cart": "Sepete Git",
+    "checkout": "Ödeme adımına geç",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "qty": "QTY",
+    "note_label": "Siparişinize not ekleyin",
+    "note_placeholder": "Bilmemiz gereken önemli bir şey var mı?! Lütfen buraya yazın.",
+    "note_button": "Kaydet",
+    "note_saved": "Kaydedilmedi",
+    "subtotal": "Ara Toplam",
+    "subtotal_regular": "Regular price",
+    "subtotal_discounted": "Discounted price",
+    "alert_item_added": "Ürün sepetinize eklendi",
+    "alert_cart_updated": "Sepet güncellendi",
+    "alert_error": "There was an error processing your request. Please try again later. If the issue persist, please contact us",
+    "taxes_shipping_at_checkout_html": "Taxes &amp; <a href=\"\/policies\/shipping-policy\">Shipping<\/a> calculated at checkout"
+  },
+  "blogs": {
+    "filter_by": "Filter by",
+    "all_topics": "All topics",
+    "posted_in": "Posted in",
+    "article": {
+      "blog": "Blog",
+      "read_more_title": "Read more: {{ title }}",
+      "read_more": "Read more",
+      "comments": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      },
+      "moderated": "Please note, comments need to be approved before they are published.",
+      "comment_form_title": "Leave a comment",
+      "name": "Name",
+      "email": "Email",
+      "message": "Comment",
+      "post": "Post comment",
+      "back_to_blog": "Back to blog",
+      "share": "Share this article",
+      "success": "Your comment was posted successfully! Thank you!",
+      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated."
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Hesabım",
+      "logout": "Çıkış Yap",
+      "order_history": "Ödeme Geçmişi",
+      "account_details": "Hesap Detay",
+      "view_addresses": "Adresler",
+      "return": "Hesap detaylarına dön",
+      "drawer_manage_account_html": "Hesabıma <a href=\"\/account\">Git<\/a>",
+      "drawer_register_login_html": "Please <a href=\"\/account\/register\">Register<\/a> or <a href=\"\/account\/login\">Login<\/a>"
+    },
+    "login": {
+      "title": "Giriş Yap",
+      "email": "Email",
+      "password": "Şifre",
+      "submit": "Gönder",
+      "forgot_password": "Şifremi unuttum",
+      "new": "Are you new here?",
+      "create_account": "Üye Ol",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue"
+    },
+    "recover_password": {
+      "title": "Şifre Yenileme",
+      "email": "Email",
+      "submit": "Submit",
+      "cancel": "İptal",
+      "subtext": "We will send you an email to reset your password.",
+      "success": "Şifre yenileme linkini emailine gönderdik."
+    },
+    "reset_password": {
+      "title": "Reset password",
+      "subtext": "Enter a new password for {{ email }}",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Reset Password"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create your password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation"
+    },
+    "register": {
+      "title": "Yeni hesap oluştur",
+      "first_name": "İsim",
+      "last_name": "Soyisim",
+      "email": "Email",
+      "password": "Şifre",
+      "submit": "Hesap Oluştur",
+      "have_account": "Already have an account?",
+      "login": "Please login"
+    },
+    "orders": {
+      "title": "Ödeme Geçmişi",
+      "order_number": "Order", 
+      "date": "Date",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fulfillment Status",
+      "total": "Total",
+      "none": "Henüz herhangi bir sipariş vermediniz."
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date_html": "Placed on {{ date }}",
+      "cancelled_html": "Order Cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "billing_address": "Billing Address",
+      "cancelled": "Order Cancelled on {{ date }}",
+      "date": "Placed on {{ date }}",
+      "payment_status": "Payment Status",
+      "shipping_address": "Shipping Address",
+      "fulfillment_status": "Fulfillment Status",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "fulfilled_at_html": "Fulfilled {{ date }}",
+      "track_shipment": "Track shipment",
+      "tracking_url": "Tracking link",
+      "tracking_company": "Carrier",
+      "tracking_number": "Tracking number",
+      "subtotal": "Subtotal",
+      "note": "Customer note"
+    },
+    "addresses": {
+      "title": "Adresler",
+      "tab_addresses": "Adresler",
+      "tab_add_new": "Yeni ekle",
+      "default": "Varsayılan adres",
+      "add_new": "Yeni adres ekle",
+      "edit_address": "Düzenle",
+      "first_name": "Adı",
+      "last_name": "Soyadı",
+      "company": "Şirket",
+      "address1": "Addres 1",
+      "address2": "Addres 2",
+      "city": "Şehir",
+      "country": "Ülke",
+      "province": "Vilayet",
+      "zip": "Posta Kodu",
+      "phone": "Telefon",
+      "set_default": "Varsayılan adres",
+      "add": "Kaydet",
+      "update": "Adres Güncelle",
+      "cancel": "İptal",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "delete_confirm": "Bu adresi silmek istediğinizden emin misiniz?",
+      "select_country": "Ülke Seç",
+      "no_addresses": "Henüz adres yok. 'Yeni ekle' sekmesinden ilk adresinizi ekleyin."
+    }
+  }
+}
