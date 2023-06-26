@@ -1,0 +1,357 @@
+{% liquid
+    assign mt = section.settings.mt | prepend: 'mt-'
+    assign mb = section.settings.mb | prepend: 'mb-'
+%}
+
+<section 
+        id="carousel-{{ section.id }}" 
+        class="my-carousel {{ mt }} {{ mb }} container">
+    <div class="swiper mycarousel-{{ section.id }}">
+        <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+                <div class="swiper-slide {% if forloop.first == true %}active{% endif %}" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                    {% if block.settings.img_mobile == blank and block.settings.img_desktop == blank %}
+                        {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                        <div class="carousel-image">
+                            {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'bg-secondary h-100' }}
+                        </div>
+                    {% else %}
+                        <picture>
+                            <source srcset="{{ block.settings.img_mobile | image_url: width: '960', crop: 'center' }}" media="(max-width: 767.98px)" >
+                            <source srcset="{{ block.settings.img_desktop | image_url: width: '1920', crop: 'center' }}" media="(min-width: 768px)" >
+                            <img class="carousel-image w-100" src="{{ block.settings.img_mobile | image_url: width: '960', crop: 'center' }}" alt="{{ block.settings.img_desktop.alt }}" loading="lazy">
+                        </picture>
+                    {% endif %}
+                    {% unless block.settings.title == blank %}
+                        <div class="position-absolute top-0 end-0 bottom-0 start-0 d-flex align-items-center">
+                            <div class="container text-{{block.settings.content_align_mobile}}">
+                                <div class="row justify-content-{{block.settings.content_align}}">
+                                    <div class="col-lg-6 d-flex flex-column align-items-{{block.settings.content_align_mobile}} align-items-lg-center justify-content-center">
+                                        <h3 class="title mb-3 {{ block.settings.title_size }} font-ovo">
+                                            {{ block.settings.title }}
+                                        </h3>
+                                        {% unless block.settings.description == blank %}
+                                            <div class="description rte mb-6 mb-lg-40 {{ block.settings.description_size }}">
+                                                {{ block.settings.description }}
+                                            </div>
+                                        {% endunless %}
+                                        
+                                        {% unless block.settings.btn_text == blank %}
+                                            <a 
+                                                class="btn btn-md rounded-0 {{ block.settings.btn_color }} {{ block.settings.btn_size }}"  
+                                                href="{{ block.settings.btn_url }}">
+                                                {{ block.settings.btn_text }}
+                                            </a>
+                                        {% endunless %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endunless %}
+                </div>
+            {% endfor %}
+        </div>
+        {% if section.settings.indicators and section.blocks.size > 1 %}
+            <div class="swiper-pagination"></div>
+        {% endif %}            
+        {% if section.settings.controls and section.blocks.size > 1 %}
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        {% endif %}            
+    </div>
+</section>
+
+{% style %}
+    @media (max-width: 767.98px) {   
+        .carousel-image {
+            height: {{ section.settings.img_mobile_height }}px;
+        }
+    }
+    @media (min-width: 768px) {    
+        .carousel-image {
+            height: {{ section.settings.img_desktop_height }}px;
+        }
+    }
+{% endstyle %}
+
+<script>
+    var swiper = new Swiper('.mycarousel-{{ section.id }}', {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: {{section.settings.loop}},
+        {% if  section.settings.animation == 'slide carousel-fade' %} effect: 'fade', {% endif %}        
+        autoplay: {% if section.settings.autoplay %}true{% else %}false{% endif %},
+        pagination: {
+            el: ".swiper-pagination",
+        clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
+
+
+{% schema %}
+{
+    "name": "Carousel",
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "checkbox",
+            "id": "controls",
+            "label": "Show controls",
+            "info": "Prev/Next buttons",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "indicators",
+            "label": "Show indicators",
+            "info": "Small dots at the end",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "Enabled autoplay",
+            "info": "Every 5 seconds",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "loop",
+            "label": "Enabled loop",
+            "default": false
+        },
+        {
+            "type": "select",
+            "id": "animation",
+            "label": "Animation",
+            "options": [
+                { "value": "slide", "label": "Slide" },
+                { "value": "slide carousel-fade", "label": "Fade" }
+            ],
+            "default": "slide"
+        },
+        {
+            "type": "header",
+            "content": "Mobile image"
+        },
+        {
+            "type": "range",
+            "id": "img_mobile_height",
+            "label": "Image height (px)",
+            "min": 200,
+            "max": 1000,
+            "step": 10,
+            "default": 500
+        },
+        {
+            "type": "header",
+            "content": "Desktop image"
+        },
+        {
+            "type": "range",
+            "id": "img_desktop_height",
+            "label": "Image height (px)",
+            "min": 200,
+            "max": 1000,
+            "step": 10,
+            "default": 800
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        },
+        {
+            "type": "range",
+            "id": "mt",
+            "label": "Margin top",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mb",
+            "label": "Margin bottom",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "default": 0
+        }
+    ],
+    "blocks": [
+        {
+            "type": "slide",
+            "name": "Slide",
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Mobile image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "img_mobile",
+                    "label": "Image"
+                },
+                {
+                    "type": "header",
+                    "content": "Desktop image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "img_desktop",
+                    "label": "Image"
+                },
+                {
+                    "type": "header",
+                    "content": "Caption"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "info": "Leave empty to disable captions"
+                },
+                {
+                    "type": "select",
+                    "id": "title_size",
+                    "label": "Title size",
+                    "default": "h2",
+                    "options": [
+                        { "group": "Heading", "value": "h1", "label": "H1" },
+                        { "group": "Heading", "value": "h2", "label": "H2" },
+                        { "group": "Heading", "value": "h3", "label": "H3" },
+                        { "group": "Heading", "value": "h4", "label": "H4" },
+                        { "group": "Heading", "value": "h5", "label": "H5" },
+                        { "group": "Heading", "value": "h6", "label": "H6" }
+                    ]
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description",
+                    "info": "Leave empty to disable"
+                },
+                {
+                    "type": "select",
+                    "id": "description_size",
+                    "label": "Description size",
+                    "default": "fs-5",
+                    "options": [
+                        { "value": "fs-1", "label": "fs-1" },
+                        { "value": "fs-2", "label": "fs-2" },
+                        { "value": "fs-3", "label": "fs-3" },
+                        { "value": "fs-4", "label": "fs-4" },
+                        { "value": "fs-5", "label": "fs-5" },
+                        { "value": "fs-6", "label": "fs-6" }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "button"
+                },
+                {
+                    "type": "text",
+                    "id": "btn_text",
+                    "label": "Button text",
+                    "info": "Leave empty to disable"
+                },
+                {
+                    "type": "url",
+                    "id": "btn_url",
+                    "label": "Button URL"
+                },
+                {
+                    "type": "select",
+                    "id": "btn_color",
+                    "label": "Button color",
+                    "default": "btn-primary",
+                    "options": [
+                        { "group": "Normal", "value": "btn-link", "label": "Link" },
+                        { "group": "Normal", "value": "btn-light", "label": "Light" },
+                        { "group": "Normal", "value": "btn-dark", "label": "Dark" },
+                        { "group": "Normal", "value": "btn-primary", "label": "Primary" },
+                        { "group": "Normal", "value": "btn-secondary", "label": "Secondary" },
+                        { "group": "Normal", "value": "btn-success", "label": "Success" },
+                        { "group": "Normal", "value": "btn-danger", "label": "Danger" },
+                        { "group": "Normal", "value": "btn-warning", "label": "Warning" },
+                        { "group": "Normal", "value": "btn-info", "label": "Info" },
+                        { "group": "Outline", "value": "btn-outline-light", "label": "Light Outline" },
+                        { "group": "Outline", "value": "btn-outline-dark", "label": "Dark Outline" },
+                        { "group": "Outline", "value": "btn-outline-primary", "label": "Primary Outline" },
+                        { "group": "Outline", "value": "btn-outline-secondary", "label": "Secondary Outline" },
+                        { "group": "Outline", "value": "btn-outline-success", "label": "Success Outline" },
+                        { "group": "Outline", "value": "btn-outline-danger", "label": "Danger Outline" },
+                        { "group": "Outline", "value": "btn-outline-warning", "label": "Warning Outline" },
+                        { "group": "Outline", "value": "btn-outline-info", "label": "Info Outline" }
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "btn_size",
+                    "label": "Button size",
+                    "default": "",
+                    "options": [
+                        { "value": "btn-sm", "label": "Small" },
+                        { "value": "", "label": "Normal" },
+                        { "value": "btn-lg", "label": "Large" }
+                    ]
+                },
+                {
+                    "type": "header",
+                    "content": "Content Alignment"
+                },
+                {
+                    "type": "select",
+                    "id": "content_align",
+                    "label": "Content Align",
+                    "options": [
+                        { "value": "start", "label": "Left"},
+                        { "value": "center", "label": "Center"},
+                        { "value": "end", "label": "right"}
+                    ]
+                },
+                {
+                    "type": "select",
+                    "id": "content_align_mobile",
+                    "label": "Content Align (Mobile)",
+                    "options": [
+                        { "value": "start", "label": "Left"},
+                        { "value": "center", "label": "Center"},
+                        { "value": "end", "label": "right"}
+                    ]
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Carousel",
+            "category": "Sliders",
+            "blocks": [
+                {
+                    "type": "slide",
+                    "settings": {
+                        "title": "Caption for the 1st slide"
+                    }
+                },
+                {
+                    "type": "slide",
+                    "settings": {
+                        "title": "Caption for the 2nd slide"
+                    }
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

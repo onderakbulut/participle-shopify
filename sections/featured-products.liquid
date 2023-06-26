@@ -1,0 +1,296 @@
+{% liquid 
+    assign pt = section.settings.pt | prepend: 'padding-top:' | append: 'px;' 
+    assign pb = section.settings.pb | prepend: 'padding-bottom:' | append: 'px;' 
+    assign mt = section.settings.mt | prepend: 'margin-top:' | append: 'px;' 
+    assign mb = section.settings.mb | prepend: 'margin-bottom:' |append: 'px;' 
+
+    assign row_xs = section.settings.breakpoint_xs | prepend: 'row-cols-'
+    assign row_sm = section.settings.breakpoint_sm | prepend: 'row-cols-sm-'
+    assign row_md = section.settings.breakpoint_md | prepend: 'row-cols-md-'
+    assign row_lg = section.settings.breakpoint_lg | prepend: 'row-cols-lg-'
+    assign row_xl = section.settings.breakpoint_xl | prepend: 'row-cols-xl-'
+    assign row_xxl = section.settings.breakpoint_xxl | prepend: 'row-cols-xxl-'
+%}
+
+<section 
+    id="featured-products-{{ section.id }}" 
+    class="featured-products position-relative overflow-hidden {{ section.settings.bg_color }} {{ section.settings.text_align }}"
+    style="{{pt}} {{ pb }} {{ mt }} {{ mb }}"
+    >
+    <div class="container">
+        <h2 class="fs-25 font-ovo mb-34">
+            {{ section.settings.title }}
+        </h2>
+        <div class="product-list row mb-0 {{ row_xs }} {{ row_sm }} {{ row_md }} {{ row_lg }} {{ row_xl }} {{ row_xxl }} {% if section.settings.mobile_scroll %}mobile-scroll{% endif %}">
+            {% liquid
+                for product in section.settings.products
+                    render 'product-item', product: product
+                endfor
+            %}
+        </div>
+        {% if section.settings.btn_show %}
+            <a 
+                class="btn mt-62 mb-0 {{ section.settings.btn_color }} rounded-0 font-esteban fs-4 py-10 px-58" 
+                href="{{ section.settings.btn_url }}">
+                {{ section.settings.btn_text }}
+            </a>
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Featured Products",
+    "settings": [
+        {
+            "type": "product_list",
+            "id": "products",
+            "label": "Products"
+        },
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "select",
+            "id": "bg_color",
+            "label": "Background color",
+            "default": "",
+            "options": [
+                { "group": "Inherit", "value": "", "label": "Body" },
+                { "group": "Light", "value": "bg-white text-dark", "label": "White" },
+                { "group": "Light", "value": "bg-light text-dark", "label": "Light" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "text_align",
+            "label": "Text align",
+            "default": "text-center",
+            "options": [
+                { "value": "text-start", "label": "Left" },
+                { "value": "text-center", "label": "Center" }
+            ]
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Featured Products"
+        },
+        {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description (optional)",
+            "default": "<p>Add on optional description to this section</p>"
+        },
+        {
+            "type": "select",
+            "id": "description_size",
+            "label": "Description size",
+            "default": "fs-6",
+            "options": [
+                { "value": "fs-1", "label": "fs-1" },
+                { "value": "fs-2", "label": "fs-2" },
+                { "value": "fs-3", "label": "fs-3" },
+                { "value": "fs-4", "label": "fs-4" },
+                { "value": "fs-5", "label": "fs-5" },
+                { "value": "fs-6", "label": "fs-6" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Product"
+        },
+        {
+            "type": "select",
+            "id": "product_img_orientation",
+            "label": "Image orientation",
+            "default": "square",
+            "options": [
+                { "value": "square", "label": "Square" },
+                { "value": "landscape", "label": "Landscape" },
+                { "value": "potrait", "label": "Potrait" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "product_title_size",
+            "label": "Title size",
+            "default": "h6",
+            "options": [
+                { "value": "h1", "label": "H1" },
+                { "value": "h2", "label": "H2" },
+                { "value": "h3", "label": "H3" },
+                { "value": "h4", "label": "H4" },
+                { "value": "h5", "label": "H5" },
+                { "value": "h6", "label": "H6" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Breakpoints",
+            "info": "Adjust items per slide based on screen resolution"
+        },
+                {
+            "type": "checkbox",
+            "id": "mobile_scroll",
+            "label": "Scroll on mobile (xs)",
+            "info": "If enabled, the value for the settings below (Items per slide / xs) is not applicable.",
+            "default": true
+        },
+        {
+            "type": "range",
+            "id": "breakpoint_xs",
+            "label": "Items per slide / xs",
+            "info": "Screen width: less than 576px",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "default": 2
+        },
+        {
+            "type": "range",
+            "id": "breakpoint_sm",
+            "label": "Items per slide / sm",
+            "info": "Screen width: ≥576px",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "default": 2
+        },
+        {
+            "type": "range",
+            "id": "breakpoint_md",
+            "label": "Items per slide / md",
+            "info": "Screen width: ≥768px",
+            "min": 1,
+            "max": 4,
+            "step": 1,
+            "default": 2
+        },
+        {
+            "type": "range",
+            "id": "breakpoint_lg",
+            "label": "Items per slide / lg",
+            "info": "Screen width: ≥992px",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "default": 3
+        },
+        {
+            "type": "range",
+            "id": "breakpoint_xl",
+            "label": "Items per slide / xl",
+            "info": "Screen width: ≥1200px",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "default": 4
+        },
+        {
+            "type": "range",
+            "id": "breakpoint_xxl",
+            "label": "Items per slide / xxl",
+            "info": "Screen width: ≥1400px",
+            "min": 1,
+            "max": 8,
+            "step": 1,
+            "default": 4
+        },
+        {
+            "type": "header",
+            "content": "'View more' Button"
+        },
+        {
+            "type": "checkbox",
+            "id": "btn_show",
+            "label": "Show button",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Button text",
+            "default": "View more products"
+        },
+        {
+            "type": "url",
+            "id": "btn_url",
+            "label": "Button URL"
+        },
+        {
+            "type": "select",
+            "id": "btn_color",
+            "label": "Button color",
+            "default": "btn-primary",
+            "options": [
+                { "group": "Normal", "value": "btn-link", "label": "Link" },
+                { "group": "Normal", "value": "btn-light", "label": "Light" },
+                { "group": "Normal", "value": "btn-dark", "label": "Dark" },
+                { "group": "Normal", "value": "btn-primary", "label": "Primary" },
+                { "group": "Normal", "value": "btn-secondary", "label": "Secondary" },
+                { "group": "Normal", "value": "btn-success", "label": "Success" },
+                { "group": "Normal", "value": "btn-danger", "label": "Danger" },
+                { "group": "Normal", "value": "btn-warning", "label": "Warning" },
+                { "group": "Normal", "value": "btn-info", "label": "Info" },
+                { "group": "Outline", "value": "btn-outline-light", "label": "Light Outline" },
+                { "group": "Outline", "value": "btn-outline-dark", "label": "Dark Outline" },
+                { "group": "Outline", "value": "btn-outline-primary", "label": "Primary Outline" },
+                { "group": "Outline", "value": "btn-outline-secondary", "label": "Secondary Outline" },
+                { "group": "Outline", "value": "btn-outline-success", "label": "Success Outline" },
+                { "group": "Outline", "value": "btn-outline-danger", "label": "Danger Outline" },
+                { "group": "Outline", "value": "btn-outline-warning", "label": "Warning Outline" },
+                { "group": "Outline", "value": "btn-outline-info", "label": "Info Outline" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        },
+        {
+            "type": "range",
+            "id": "pt",
+            "label": "Padding top",
+            "min": 0,
+            "max": 70,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "pb",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 70,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mt",
+            "label": "Margin top",
+            "min": 0,
+            "max": 70,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mb",
+            "label": "Margin bottom",
+            "min": 0,
+            "max": 70,
+            "step": 1,
+            "default": 0
+        }
+    ],
+    "presets": [
+        {
+            "name": "Featured Products",
+            "category": "Products"
+        }
+    ]
+}
+{% endschema %}

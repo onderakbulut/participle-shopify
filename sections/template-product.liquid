@@ -1,0 +1,230 @@
+{% liquid
+    assign current_variant = product.selected_or_first_available_variant
+%}
+
+<a class="visually-hidden-focusable" href="#product-content">
+    {{ 'general.accessibility.skip_product_content' | t }}
+</a>
+
+<div class="d-flex justify-content-center">
+    {%  render 'breadcrumbs' %}
+</div>
+
+<section 
+    id="product-template" 
+    class="pt-20 mb-25 mb-lg-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-22 mb-lg-0">
+                <div class="d-flex">
+                    <div class="thumbs-wrapper d-none d-lg-block">
+                        {% render 'product-thumbs' %}
+                    </div>
+                    <div class="product-preview w-100">
+                        {% render 'product-gallery' %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div id="product-content">
+                    {% if section.settings.show_vendor and product.vendor %}
+                        <p class="product-vendor text-muted my-1 text-uppercase">
+                            {{ product.vendor }}
+                        </p>
+                    {% endif %}
+                    <div class="d-flex gap-4 justify-content-between">
+                        <h1 class="title h4 mb-0">
+                            {{ product.title }}
+                        </h1>
+                        <div class="product-price text-center">
+                            {% if current_variant.compare_at_price > current_variant.price %}
+                                <div class="d-flex flex-column-reverse align-items-center justify-content-start">
+                                    <span class="product-price-compare">
+                                        <span class="visually-hidden">
+                                            {{ 'product.price_regular' | t }} &nbsp;
+                                        </span>
+                                        <s>{{ current_variant.compare_at_price | money }}</s>
+                                    </span>
+                                    <span class="product-price-final">
+                                        <span class="visually-hidden">
+                                            {{ 'product.price_sale' | t }} &nbsp;
+                                        </span>
+                                        {{ current_variant.price | money }}
+                                    </span>
+                               </div>
+                            {% else %}
+                                <span class="product-price-final">
+                                    {{ current_variant.price | money }}
+                                </span>
+                            {% endif %}
+                            {% if current_variant.available and current_variant.compare_at_price > current_variant.price %}
+                                <span class="price-badge-sale badge bg-success fs-10 d-none">
+                                    {{ 'product.save' | t }} {{ current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price | round | append: '%' }}
+                                </span>    
+                            {% endif %}
+                            {% unless current_variant.available %}
+                                <span class="price-badge-sold-out badge bg-danger fs-10 ms-2">
+                                    {{ 'product.sold_out' | t }}
+                                </span>        
+                            {% endunless %}
+                        </div>
+                    </div>
+                    <hr class="bg-wild">
+                    {{ product.description }}
+
+                    {% render 'product-form' %}
+                    {% comment %}
+                        {% render 'product-accordion' %}
+                    {% endcomment %}
+
+                    {% if section.settings.show_share_btn %}
+                        <div class="text-end">
+                            {% render 'share-button', title: product.title, url: product.url %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{%- liquid
+    if product.selected_or_first_available_variant.featured_media
+        assign seo_media = product.selected_or_first_available_variant.featured_media
+    else
+        assign seo_media = product.featured_media
+    endif
+-%}
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    {% if seo_media -%}
+        "image": [
+            {{ seo_media | image_url: width: seo_media.preview_image.width | prepend: "https:" | json }}
+        ],
+    {%- endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank -%}
+        "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {%- endif %}
+    "brand": {
+        "@type": "Brand",
+        "name": {{ product.vendor | json }}
+    },
+    "offers": [
+        {%- for variant in product.variants -%}
+            {
+            "@type" : "Offer",
+            {%- if variant.sku != blank -%}
+                "sku": {{ variant.sku | json }},
+            {%- endif -%}
+            {%- if variant.barcode.size == 12 -%}
+                "gtin12": {{ variant.barcode }},
+            {%- endif -%}
+            {%- if variant.barcode.size == 13 -%}
+                "gtin13": {{ variant.barcode }},
+            {%- endif -%}
+            {%- if variant.barcode.size == 14 -%}
+                "gtin14": {{ variant.barcode }},
+            {%- endif -%}
+            "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+            "price" : {{ variant.price | divided_by: 100.00 | json }},
+            "priceCurrency" : {{ cart.currency.iso_code | json }},
+            "url" : {{ request.origin | append: variant.url | json }}
+            }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+    ]
+}
+</script>
+
+{% schema %}
+{
+    "name": "Product (template)",
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_vendor",
+            "label": "Show vendor",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_share_btn",
+            "label": "Show Share button",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "Gallery"
+        },
+        {
+            "type": "select",
+            "id": "gallery_img_orientation",
+            "label": "Image orientation",
+            "default": "square",
+            "options": [
+                { "value": "square", "label": "Square" },
+                { "value": "landscape", "label": "Landscape" },
+                { "value": "potrait", "label": "Potrait" }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Form"
+        },
+        {
+            "type": "checkbox",
+            "id": "form_show_buy_btn",
+            "label": "Show Buy button",
+            "default": true
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product_description",
+            "name": "Product description",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Details"
+                }
+            ]
+        },
+        {
+            "type": "richtext",
+            "name": "Richtext",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Rich text"
+                },
+                {
+                    "type": "richtext",
+                    "id": "description",
+                    "label": "Description"
+                }
+            ]
+        }
+    ],
+    "templates": ["product"],
+    "presets": [
+        {
+            "name": "Product (template)",
+            "category": "Product page"
+        }
+    ]
+}
+{% endschema %}

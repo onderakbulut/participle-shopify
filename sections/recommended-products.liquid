@@ -1,0 +1,77 @@
+<section 
+    id="recommended-products-{{ section.id }}" 
+    class="recommended-products featured-products position-relative overflow-hidden pt-90"
+    data-base-url="{{ routes.product_recommendations_url }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}" 
+    data-limit="{{ section.settings.limit }}">
+    <div class="container">
+        <h5 class="title mb-30 text-center font-ovo fs-17 text-uppercase">
+            {{ section.settings.title }}
+        </h5>
+        <div class="mx-lg-n20 overflow-hidden">
+            <div class="recommend-slider swiper lazyload text-center px-lg-20 pb-20 lazyload product-list">
+                <div class="swiper-wrapper">
+                    {% liquid
+                        for product in recommendations.products
+                            echo '<div class="swiper-slide h-auto">'
+                                render 'product-item', product: product, type: 'slider'
+                            echo '</div>'    
+                        endfor
+                    %}    
+                </div>
+                <div class="swiper-btn-prev d-none d-xl-flex"></div>
+                <div class="swiper-btn-next d-none d-lg-flex"></div>
+                <div class="swiper-scrollbar d-lg-none"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Recommended Products",
+    "settings": [
+        {
+            "type": "paragraph",
+            "content": "NOTE: This section works only in the product page."
+        },
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "range",
+            "id": "limit",
+            "label": "Limit products",
+            "min": 2,
+            "max": 20,
+            "default": 4
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Recommended Products"
+        },
+        {
+            "type": "select",
+            "id": "product_img_orientation",
+            "label": "Image orientation",
+            "default": "square",
+            "options": [
+                { "value": "square", "label": "Square" },
+                { "value": "landscape", "label": "Landscape" },
+                { "value": "potrait", "label": "Potrait" }
+            ]
+        }
+    ],
+    "templates": ["product"],
+    "presets": [
+        {
+            "name": "Recommended Products",
+            "category": "Products"
+        }
+    ]
+}
+{% endschema %}

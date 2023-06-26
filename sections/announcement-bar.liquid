@@ -1,0 +1,146 @@
+{% if section.settings.show %}
+    {% if section.settings.homepage == false or template.name == 'index' %}
+        {%- if section.blocks.size == 1 -%}
+            {%- if section.blocks.first.settings.text != blank -%}
+                <section 
+                    id="announcement-bar-{{ section.id }}" 
+                    class="announcement-bar bg-sand py-10">
+                    <div class="container-lg">
+                        <div class="mx-auto" style="max-width: {{ section.settings.max_width }}px;">
+                            <div class="text-center">
+                                {%- if section.blocks.first.settings.link != blank -%}
+                                    <a href="{{ block.settings.link }}" class="animate-arrow">
+                                {%- endif -%}
+                                    <p class="announcement-bar-message fs-12">
+                                    {{ section.blocks.first.settings.text | escape }}
+                                    {%- if section.blocks.first.settings.link != blank -%}
+                                        {% render 'icon-arrow' %}
+                                    {%- endif -%}
+                                    </p>
+                                {%- if section.blocks.first.settings.link != blank -%}
+                                    </a>
+                                {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {%- endif -%}
+        {%- elsif section.blocks.size > 1 -%}
+            <section 
+                    id="announcement-bar-{{ section.id }}" 
+                    class="announcement-bar bg-sand py-10">
+                <div class="container-lg gx-0">
+                    <div class="mx-auto" style="max-width: {{ section.settings.max_width }}px;">
+                        <div class="text-center">
+                            <div class="swiper myswiper-{{ section.id }}">
+                                <div class="swiper-wrapper">
+                                    {%- for block in section.blocks -%}
+                                        <div class="swiper-slide">
+                                            {%- if block.settings.text != blank -%}
+                                                {%- if block.settings.link != blank -%}
+                                                    <a href="{{ block.settings.link }}" class="animate-arrow">
+                                                {%- endif -%}
+                                                    <p class="announcement-bar-message fs-12">
+                                                    {{ block.settings.text | escape }}
+                                                    {%- if block.settings.link != blank -%}
+                                                        {% render 'icon-arrow' %}
+                                                    {%- endif -%}
+                                                    </p>
+                                                {%- if block.settings.link != blank -%}
+                                                    </a>
+                                                {%- endif -%}
+                                            {%- endif -%}
+                                    </div>
+                                    {% endfor  %}
+                                </div>
+                                <div class="swiper-button-prev"> {% render 'icon-caret' %}</div>
+                                <div class="swiper-button-next"> {% render 'icon-caret' %}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        {%- endif -%}
+    {% endif %}
+{% endif %}
+
+<script>
+    var swiper = new Swiper('.myswiper-{{ section.id }}', {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+        clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Announcement bar",
+    "max_blocks": 12,
+    "settings": [
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "checkbox",
+            "id": "show",
+            "label": "Show announcement bar",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "homepage",
+            "label": "Show only on homepage",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "max_width",
+            "label": "Max-width (px)",
+            "default": "600"
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        }
+    ],
+    "blocks": [
+        {
+        "type": "announcement",
+        "name": "Announcement",
+        "settings": [
+            {
+            "type": "text",
+            "id": "text",
+            "default": "Welcome to our store",
+            "label": "Text"
+            },
+            {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+            }
+        ]
+        }
+    ],
+    "presets": [
+        {
+        "name": "Announcement",
+        "blocks": [
+            {
+            "type": "announcement"
+            }
+        ]
+        }
+    ]
+}
+{% endschema %}
