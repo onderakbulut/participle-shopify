@@ -12,4 +12,5 @@ Open-sourced Shopify Store 2.0 theme with bootstrap and vanilla javascript
 Password : 1
 
 ## Screenshot
-![](https://onderakbulut.com/demo-4/screenshot.jpg)
+
+![screenshot](https://github.com/user-attachments/assets/242772d7-cd42-4f38-93f1-bfe10d9949ba)
